@@ -1,0 +1,425 @@
+# !/bin/bash
+#
+# Shell Profile
+#
+########################################################################################
+
+########################################################################################
+# When an interactive shell is started (log in, open terminal or iTerm
+# in OS X, or create a new tab in iTerm) the following files are read
+# and run, in this order:
+#
+# 1.    profile
+# 2.    bashrc
+# 3.    .bash_profile
+# 4.    .bashrc (only because this file is run (sourced) in .bash_profile)
+#
+# When an interactive shell, that is not a login shell, is started 
+# (when you run "bash" from inside a shell, or when you start a shell
+# in xwindows [xterm/gnome-terminal/etc] ) the following files are read
+# and executed, in this order:
+# 
+# 1.    bashrc
+# 2.    .bashrc
+########################################################################################
+
+########################################################################################
+# Identify OS and Machine
+########################################################################################
+
+export OS=`uname -s | sed -e 's/  */-/g;y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
+export OSVERSION=`uname -r`; OSVERSION=`expr "$OSVERSION" : '[^0-9]*\([0-9]*\.[0-9]*\)'`
+export MACHINE=`uname -m | sed -e 's/  */-/g;y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
+export PLATFORM="$MACHINE-$OS-$OSVERSION"
+
+########################################################################################
+# Put list of remote hosts in ~/.hosts
+########################################################################################
+export HOSTFILE=$HOME/.hosts
+export SYSHOSTFILE=/etc/hosts   
+
+########################################################################################
+# Path
+########################################################################################
+
+# OS-X Specific, with MacPorts and MySQL installed
+if [ "$OS" = "darwin" ] ; then
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH  
+fi
+ 
+# add your bin folder to the path, if you have it.  It's a good place to add all your scripts
+if [ -d ~/bin ]; then
+  export PATH=:~/bin:$PATH  
+fi
+
+
+########################################################################################
+# Load in .bashrc
+########################################################################################
+
+if [ -e ~/.bashrc ]; then
+  source ~/.bashrc
+fi
+ 
+ 
+########################################################################################
+# Hello Messsage
+########################################################################################
+
+echo -e  "Kernel: " `uname -smr`
+echo -ne "Uptime:  "; uptime
+echo -ne "Time  :  "; date
+
+########################################################################################
+# Set Prompt
+########################################################################################
+
+export CLICOLOR=1
+export PS1="\n\u@\h:\w\n$ "
+
+########################################################################################
+# Java HOME and CLASSPATH
+########################################################################################
+
+export JAVA_HOME=/Library/Java/Home
+
+########################################################################################
+# Multiprocess Aquamacs Alias
+########################################################################################
+
+alias aquamacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
+alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
+
+########################################################################################
+# Open file in the current Aquamacs window
+########################################################################################
+
+alias openwithaquamacs='open -a /Applications/Aquamacs\ Emacs.app $1'
+
+########################################################################################
+# Always use VIM
+########################################################################################
+
+alias vi='vim'
+
+########################################################################################
+# Mercurial aliases
+########################################################################################
+
+alias hgstat='hg status'
+
+########################################################################################
+# Git/GitHub aliases
+########################################################################################
+
+alias gitstat='git status'
+alias git-add-upstream='git remote add upstream'
+alias git-pull-upstream='git pull upstream master'
+
+#######################################################################################
+#
+# Set command aliases
+#
+#######################################################################################
+
+alias reload-bash='source ~/.profile'
+
+alias rebuild-menu='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+alias h='history'
+alias j='jobs -l'
+alias which='type -a'
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+
+alias cd..='cd ..'
+alias ..='cd ..'
+alias .='echo $PWD'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+
+alias h='history'
+alias j='jobs -l'
+alias which='type -a'
+
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+
+alias du='du -kh'
+alias df='df -kTh'
+
+alias systail='tail -f /var/log/system.log'
+
+#######################################################################################
+# Cleanup Resource Forks
+#######################################################################################
+alias cleanresforks='find . -name \*._*|xargs \rm'
+
+#######################################################################################
+# Copies folder and all sub files and folders, preserving security and dates
+#######################################################################################
+
+alias cp_folder="cp -Rpv" 
+
+#######################################################################################
+# Shows most used commands
+# http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
+#######################################################################################
+
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
+ 
+#######################################################################################
+# Lists folders and files sizes in the current folder
+#######################################################################################
+
+alias ducks='du -cksh * | sort -rn|head -11'
+alias du1='du -h -d 1'
+
+#######################################################################################
+# tailoring 'less'
+#######################################################################################
+
+alias more='less'
+
+#######################################################################################
+# Prevents accidentally clobbering files.
+#######################################################################################
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias mkdir='mkdir -p'
+
+#######################################################################################
+# The 'ls' family (this assumes you use a recent GNU ls)
+#######################################################################################
+
+alias la='ls -lAxh'        # show all, including hidden files
+alias ll='ls -l'           # show all, exclude hidden files
+
+alias lx='ls -lxB'         # sort by extension
+alias lk='ls -lSr'         # sort by size, biggest last
+alias lc='ls -ltcr'        # sort by and show change time, most recent last
+alias lu='ls -ltur'        # sort by and show access time, most recent last
+alias lt='ls -ltr'         # sort by date, most recent last
+alias lm='ls -al |more'    # pipe through 'more'
+alias lr='ls -lR'          # recursive ls
+
+#######################################################################################
+# Networking related aliases
+#######################################################################################
+
+alias ping='ping -c 10'
+alias openports='netstat -nap tcp'
+alias ns='netstat -alnp tcp | grep -v CLOSE_WAIT | cut -c-6,21-94 | tail +2'
+
+######################################################################################
+# Build related aliases
+######################################################################################
+
+alias maven='mvn3'
+
+######################################################################################
+# Config file editing aliases
+######################################################################################
+
+alias hostedit='sudo vim ${SYSHOSTFILE}'
+
+######################################################################################
+# Java Decompiler(JAD) standard command
+######################################################################################
+
+# Execute JAD with standard options
+
+function jadexec()
+{
+    find . -name \*.class |xargs jad -b -d "$1" -dead -ff -i -o -r -radix10 -s .java -safe -stat
+}
+
+# Execute JAD with fully qualified names and with verbose processing output
+
+function jadexecv()
+{
+    find . -name \*.class |xargs jad -b -d "$1" -dead -f -ff -i -o -r -radix10 -s .java -safe -stat -v
+}
+
+######################################################################################
+# File & string-related functions
+######################################################################################
+
+# Find a file with a pattern in name:
+function ff()
+{
+    find . -type f -iname '*'$*'*' -ls ;
+}
+
+# Find a directory with a pattern in name:
+function fd()
+{
+   find . -type d -iname '*'$*'*' -ls ;
+}
+
+# Case insensitive, excluding svn folders
+function fesvn()
+{
+    find . -path '*/.svn' -prune -o -type f -print0 | xargs -0 grep -I -n -e "$1"
+}
+
+# Case insensitive, excluding git folders
+function fegit()
+{
+    find . -path '*/.git*' -prune -o -type f -print0 | xargs -0 grep -I -n -e "$1"
+}
+
+# Find a file with pattern $1 in name and Execute $2 on it:
+function fe()
+{
+    find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ;
+}
+
+
+# Find a pattern in a set of files and highlight them:
+# (needs a recent version of egrep)
+function fstr()
+{
+    OPTIND=1
+    local case=""
+    local usage="fstr: find string in files.
+Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    while getopts :it opt
+    do
+        case "$opt" in
+        i) case="-i " ;;
+        *) echo "$usage"; return;;
+        esac
+    done
+    shift $(( $OPTIND - 1 ))
+    if [ "$#" -lt 1 ]; then
+        echo "$usage"
+        return;
+    fi
+    find . -type f -name "${2:-*}" -print0 | \
+    xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more 
+
+}
+
+# cut last n lines in file, 10 by default
+function cuttail() 
+{
+    nlines=${2:-10}
+    sed -n -e :a -e "1,${nlines}!{P;N;D;};N;ba" $1
+}
+
+# move filenames to lowercase
+function lowercase()  
+{
+    for file ; do
+        filename=${file##*/}
+        case "$filename" in
+        */*) dirname==${file%/*} ;;
+        *) dirname=.;;
+        esac
+        nf=$(echo $filename | tr A-Z a-z)
+        newname="${dirname}/${nf}"
+        if [ "$nf" != "$filename" ]; then
+            mv "$file" "$newname"
+            echo "lowercase: $file --> $newname"
+        else
+            echo "lowercase: $file not changed."
+        fi
+    done
+}
+
+
+# Swap 2 filenames around, if they exist
+function swap()  
+{                
+    local TMPFILE=tmp.$$ 
+
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+
+    mv "$1" $TMPFILE 
+    mv "$2" "$1"
+    mv $TMPFILE "$2"
+}
+
+# Handy Extract command
+function extract()      
+{
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xvjf $1     ;;
+             *.tar.gz)    tar xvzf $1     ;;
+             *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+             *.tar)       tar xvf $1      ;;
+             *.tbz2)      tar xvjf $1     ;;
+             *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+             *.Z)         uncompress $1   ;;
+             *.7z)        7z x $1         ;;
+             *)           echo "'$1' cannot be extracted via func extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+# pneumonic for tar extract
+alias untar="tar xvzf"
+
+#######################################################################################
+# Process/system related functions:
+#######################################################################################
+
+function my_ps()
+{
+    ps $@ -u $USER -o pid,%cpu,%mem,time,command ;
+}
+
+
+function pp()
+{
+    my_ps -f | awk '!/awk/ && $0~var' var=${1:-".*"} ;
+}
+
+# Kill by process name.
+function killps()                 
+{
+    local pid pname sig="-TERM"   # Default signal.
+    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+        echo "Usage: killps [-SIGNAL] pattern"
+        return;
+    fi
+    if [ $# = 2 ]; then sig=$1 ; fi
+    for pid in $(my_ps| awk '!/awk/ && $0~pat { print $1 }' pat=${!#} ) ; do
+        pname=$(my_ps | awk '$1~var { print $5 }' var=$pid )
+        if ask "Kill process $pid <$pname> with signal $sig?"
+            then kill $sig $pid
+        fi
+    done
+}
+
+
+#######################################################################################
+# Misc utilities
+#######################################################################################
+
+function repeat() 
+{
+    # Repeat n times command.
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do
+        eval "$@";
+    done
+}
+
+
