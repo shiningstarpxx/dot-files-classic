@@ -346,37 +346,37 @@
 ;; (set-buffer-file-coding-system 'iso-latin-1-dos)
 ;; (set-buffer-file-coding-system 'undecided-unix)
 ;;
-;; Default to 8-bit clean latin-1 encoding
+;; Default to 8-bit clean utf-8 encoding
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(set-default-coding-systems    'iso-latin-1-unix) 
-(set-buffer-file-coding-system 'iso-latin-1-unix) 
+(set-default-coding-systems    'utf-8-unix) 
+(set-buffer-file-coding-system 'utf-8-unix) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Set file associations for automatic charset conversions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(modify-coding-system-alist 'file "\\.m\\'"    'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.c\\'"    'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.h\\'"    'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.hpp\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.H\\'"    'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.cpp\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.C\\'"    'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.idl\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.java\\'" 'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.js\\'"   'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.sh\\'"   'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.conf\\'" 'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.xml\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.xul\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.rdf\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.html\\'" 'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.css\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.vm\\'"   'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.php\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.xsd\\'"  'iso-latin-1-unix)
-(modify-coding-system-alist 'file "\\.dtd\\'"  'iso-latin-1-unix)
+(modify-coding-system-alist 'file "\\.m\\'"    'utf-8-unix)
+(modify-coding-system-alist 'file "\\.c\\'"    'utf-8-unix)
+(modify-coding-system-alist 'file "\\.h\\'"    'utf-8-unix)
+(modify-coding-system-alist 'file "\\.hpp\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.H\\'"    'utf-8-unix)
+(modify-coding-system-alist 'file "\\.cpp\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.C\\'"    'utf-8-unix)
+(modify-coding-system-alist 'file "\\.idl\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.java\\'" 'utf-8-unix)
+(modify-coding-system-alist 'file "\\.js\\'"   'utf-8-unix)
+(modify-coding-system-alist 'file "\\.sh\\'"   'utf-8-unix)
+(modify-coding-system-alist 'file "\\.conf\\'" 'utf-8-unix)
+(modify-coding-system-alist 'file "\\.xml\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.xul\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.rdf\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.html\\'" 'utf-8-unix)
+(modify-coding-system-alist 'file "\\.css\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.vm\\'"   'utf-8-unix)
+(modify-coding-system-alist 'file "\\.php\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.xsd\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.dtd\\'"  'utf-8-unix)
 
 ;; Emacs recognizes which kind of end-of-line conversion to use based on the contents
 ;; of the file: if it sees only carriage-returns, or only carriage-return linefeed 
@@ -401,21 +401,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun unix-file ()
-  "Change the current buffer to Latin 1 with Unix line-ends."
+  "Change the current buffer to UTF-8 with Unix line-ends."
   (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-unix t))
+  (set-buffer-file-coding-system 'utf-8-unix t))
 
 (defun dos-file ()
-  "Change the current buffer to Latin 1 with DOS line-ends."
+  "Change the current buffer to UTF-8 with DOS line-ends."
   (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-dos t))
+  (set-buffer-file-coding-system 'utf-8-dos t))
 
 (defun mac-file ()
-  "Change the current buffer to Latin 1 with Mac line-ends."
+  "Change the current buffer to UTF-8 with Mac line-ends."
   (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-mac t))
+  (set-buffer-file-coding-system 'utf-8-mac t))
 
-;; kill blank linke
+;; kill blank line
 (defun remove-double-newline-unix ()
   "Delete doubled newlines from the current buffer."
   (interactive)
@@ -1976,6 +1976,12 @@
   (interactive)
   (cd "~/Projects"))
 
+(defun goto-aftertext ()
+  "Switch to Squarespace project directory."
+  (interactive)
+  (cd "~/Projects/AfterText"))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Key Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2047,7 +2053,122 @@
 ;; Keybindings to automatically paste copyright notice
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(global-set-key [(alt f1)]    'paste-atsl-copyright            )
+(global-set-key [(alt f2)]    'paste-atsl-mpl-copyright-html   )
+(global-set-key [(alt f3)]    'paste-atsl-mpl-copyright        )
 (global-set-key [(alt f4)]    'paste-mpl-copyright             )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Proprietary copyright information to be used in 
+;; non open-sourced code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun paste-atsl-copyright ()
+  "Insert AfterText Proprietary Copyright Text. "
+  (interactive)
+  (insert 
+"/*
+ * Version 1.0 ATSL
+ *
+ * THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF AFTERTEXT, INC.
+ * The Computer Code and Software contained herein is the sole property
+ * of AfterText, Inc  (\"AfterText\").  The copyright notice above does
+ * not evidence any actual or intended publication of such source code.
+ *
+ * Use and distribution of this software and its source code is governed
+ * by the terms and conditions of the AfterText Software License
+ * (\"ATSL\")
+ *
+ * The Initial Developer of the Original Code is AfterText, Inc. Portions
+ * created by AfterText are Copyright (C) 2010 AfterText, Inc.  All Rights 
+ * Reserved.
+ */
+")
+  (cut-ctrlM))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ATSL copyright information to be used in open-sourced 
+;; code under the terms of the MPL
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun paste-atsl-mpl-copyright-html ()
+  "Insert AfterText Copyright Text. "
+  (interactive)
+  (insert 
+"<!-- Version 1.1 MPL
+   -   
+   - The contents of this file are subject to the Mozilla Public 
+   - License Version 1.1 (the \"License\").  You may not use this 
+   - file except in compliance with the License. You may obtain a 
+   - copy of the License at http://www.mozilla.org/MPL/ 
+   -
+   - Software distributed under the License is distributed on an 
+   - \"AS IS\" basis, WITHOUT WARRANTY OF ANY KIND, either express  
+   - or implied. See the License for the specific language governing 
+   - rights and limitations under the License.
+   -
+   - The Original Code is AfterText.
+   - 
+   - The Initial Developer of the Original Code is AfterText, Inc. 
+   - Portions created by AfterText, Inc are Copyright (C) 2010 
+   - AfterText, Inc.  All Rights Reserved.
+   -  
+   - Redistribution of the Original Code or portions of the Original
+   - Code or software under this agreement must retain the above 
+   - copyright notice, this redistribution statement and the following 
+   - disclaimer.  Neither the name of AfterText, Inc nor the 
+   - names of its contributors may be used to endorse or promote any
+   - products derived from this software without specific prior 
+   - written permission from AfterText, Inc.
+   - 
+   -->
+")
+  (cut-ctrlM))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Copyright information to be used in open-sourced 
+;; code under the terms of the MPL 1.1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun paste-atsl-mpl-copyright ()
+  "Insert AfterText MPL Copyright Text. "
+  (interactive)
+  (insert 
+"/*
+ * Version 1.1 MPL
+ *
+ * The contents of this file are subject to the Mozilla Public 
+ * License Version 1.1 (the \"License\").  You may not use this 
+ * file except in compliance with the License. You may obtain a 
+ * copy of the License at http://www.mozilla.org/MPL/ 
+ *
+ * Software distributed under the License is distributed on an 
+ * \"AS IS\" basis, WITHOUT WARRANTY OF ANY KIND, either express  
+ * or implied. See the License for the specific language governing 
+ * rights and limitations under the License.
+ *
+ * The Initial Developer of the Original Code is Aftertext, Inc. 
+ * Portions created by AfterText, Inc are Copyright (C) 2010 
+ * AfterText, Inc.  All Rights Reserved.  
+ *
+ * Redistribution of the Original Code or portions of the Original
+ * Code or Software under this agreement must retain the above 
+ * copyright notice, this redistribution statement and the following 
+ * disclaimer.  Neither the name of AfterText, Inc nor the names
+ * of its contributors may be used to endorse or promote any
+ * products derived from this software without specific prior 
+ * written permission from AfterText, Inc.
+ *
+ * Contributor(s): 
+ *   Paolo de Dios <paolodedios@aftertext.com> (original author)
+ *
+ */
+")
+  (cut-ctrlM))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Copyright information to be used in open-sourced 
