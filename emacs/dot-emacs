@@ -259,6 +259,7 @@
 ;; delete old file versions
 (setq delete-old-versions  t)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Save cursor place for all files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -518,21 +519,28 @@
 ;; Miscellaneous editor settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; load the color-theme package
+(require 'color-theme)
+
+;; set custom variables
 (custom-set-variables
  '(cursor-type (quote box))
  '(tool-bar-mode nil nil (tool-bar))
- '(default-frame-alist (quote ((tool-bar-lines . 0)
-                               (menu-bar-lines . 1)
-                               (foreground-color . "wheat")
-                               (background-color . "black")
-                               (cursor-type . box)
-                               (cursor-color . "purple")
-                               (vertical-scroll-bars . right)
-                               (internal-border-width . 0)
-                               (left-fringe . 1)
+ '(default-frame-alist (quote (
+                               (tool-bar-lines         .        0)
+                               (menu-bar-lines         .        1)
+                               (foreground-color       .  "wheat")
+                               (background-color       .  "black")
+                               (cursor-type            .      box)
+                               (cursor-color           . "purple")
+                               (vertical-scroll-bars   .    right)
+                               (internal-border-width  .        0)
+                               (left-fringe            .        1)
                                (right-fringe) 
                                (fringe)
-                               )))
+                               )
+                              )
+    )
  )
 
 
@@ -681,6 +689,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'coffee-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Emacs Statistics Mode (ESS)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'ess-site)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS indentation, autoload css-mode
@@ -872,6 +888,7 @@
                (clojure-mode    . t)
                (python-mode     . t)
                (sql-mode        . t)
+               (R-mode          . t)
                (emacs-lisp-mode . t)
                (t               . 1))
              ))
@@ -1770,6 +1787,8 @@
                 ("\\.bashrc$"   . sh-mode           )
                 ("\\.profile$"  . sh-mode           )
                 ("\\.py$"       . python-mode       )
+                ("\\.R$"        . R-mode            )
+                ("\\.r$"        . R-mode            )
                 ("\\.html$"     . sgml-mode         )
                 ("\\.htm$"      . sgml-mode         )
                 ("\\.vm$"       . sgml-mode         )
