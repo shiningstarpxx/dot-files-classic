@@ -94,7 +94,9 @@ alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Pr
 # Open file in the current Aquamacs window
 ########################################################################################
 
-alias openwithaquamacs='open -a /Applications/Aquamacs\ Emacs.app $1'
+alias openwithaquaemacs='open -a /Applications/Aquamacs\ Emacs.app $1'
+
+alias openwithaquamacs='open -a /Applications/Aquamacs.app $1'
 
 ########################################################################################
 # Always use VIM
