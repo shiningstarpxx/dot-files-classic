@@ -474,6 +474,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; This is the default Mac OS X fixed width font.
+;;
+;; (set-default-font "-apple-monaco*-medium-r-normal--12-*-*-*-*-*-fontset-monaco12")
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; This is the default fixed width font. Best used under Win32
 ;;
 ;; (set-default-font "-medium-fixedsys-medium-r-normal-*-12-90-96-96-c-80-iso8859-1")
@@ -490,7 +499,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; This sets it to the default fixed width fon. Best used under Linux/Unix
+;; This sets it to the default fixed width font. Best used under Linux/Unix
 ;;
 ;; (set-default-font "-misc-fixed-medium-r-normal-*-12-120-75-75-m-70-iso8859-1")
 ;;
@@ -519,6 +528,11 @@
 ;; Miscellaneous editor settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; load textmade shortcut minor mode
+(require 'textmate)
+(textmate-mode t)
+
+
 ;; load the color-theme package
 (require 'color-theme)
 
@@ -535,9 +549,6 @@
                                (cursor-color           . "purple")
                                (vertical-scroll-bars   .    right)
                                (internal-border-width  .        0)
-                               (left-fringe            .        1)
-                               (right-fringe) 
-                               (fringe)
                                )
                               )
     )
@@ -814,26 +825,26 @@
  '(custom-mode-default ((t (:inherit autoface-default :background "black"))) t)
  '(highlight-current-line-face ((t (:background "gray10"))))
  '(linum ((t (:inherit (shadow default) :background "gray10" :foreground "dimgray"))))
- '(font-lock-builtin-face       ((((class color) (min-colors 88) (background light)) (:foreground "lightsteelblue"))))
- '(font-lock-comment-face       ((((class color) (min-colors 88) (background light)) (:foreground "orangered"))))
- '(font-lock-constant-face      ((((class color) (min-colors 88) (background light)) (:foreground "aquamarine"))))
- '(font-lock-function-name-face ((((class color) (min-colors 88) (background light)) (:foreground "lightblue"))))
- '(font-lock-keyword-face       ((((class color) (min-colors 88) (background light)) (:foreground "turquoise"))))
- '(font-lock-string-face        ((((class color) (min-colors 88) (background light)) (:foreground "tan"))))
- '(font-lock-type-face          ((((class color) (min-colors 88) (background light)) (:foreground "palegreen"))))
- '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light)) (:foreground "khaki"))))
+ '(font-lock-builtin-face       ((((class color) (min-colors 88) (background light)) (:foreground "lightsteelblue"   ))))
+ '(font-lock-comment-face       ((((class color) (min-colors 88) (background light)) (:foreground "orangered"        ))))
+ '(font-lock-constant-face      ((((class color) (min-colors 88) (background light)) (:foreground "aquamarine"       ))))
+ '(font-lock-function-name-face ((((class color) (min-colors 88) (background light)) (:foreground "lightblue"        ))))
+ '(font-lock-keyword-face       ((((class color) (min-colors 88) (background light)) (:foreground "turquoise"        ))))
+ '(font-lock-string-face        ((((class color) (min-colors 88) (background light)) (:foreground "tan"              ))))
+ '(font-lock-type-face          ((((class color) (min-colors 88) (background light)) (:foreground "palegreen"        ))))
+ '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light)) (:foreground "khaki"            ))))
  '(font-lock-warning-face       ((((class color) (min-colors 88) (background light)) (:foreground "pink" :weight bold))))
  '(text-mode-default ((t 
                        (:inherit autoface-default
-                                 :background "black"
-                                 :foreground "wheat"
+                                 :background    "black"
+                                 :foreground    "wheat"
                                  :strike-through nil
-                                 :underline nil
-                                 :slant normal
-                                 :weight normal
-                                 :height 120
-                                 :width normal
-                                 :family "monaco"))) t)
+                                 :underline      nil
+                                 :slant          normal
+                                 :weight         normal
+                                 :height         120
+                                 :width          normal
+                                 :family        "monaco"))) t)
  )
 
 (defun my-common-font-lock()
@@ -848,14 +859,14 @@
    )
   ;; set-font-lock color scheme
   (set-face-foreground 'font-lock-builtin-face         "lightsteelblue")
-  (set-face-foreground 'font-lock-comment-face         "orangered")
-  (set-face-foreground 'font-lock-constant-face        "aquamarine")
-  (set-face-foreground 'font-lock-function-name-face   "lightblue")
-  (set-face-foreground 'font-lock-keyword-face         "turquoise")
-  (set-face-foreground 'font-lock-string-face          "tan")
-  (set-face-foreground 'font-lock-type-face            "palegreen")
-  (set-face-foreground 'font-lock-variable-name-face   "khaki")
-  (set-face-foreground 'font-lock-warning-face         "pink")
+  (set-face-foreground 'font-lock-comment-face         "orangered"     )
+  (set-face-foreground 'font-lock-constant-face        "aquamarine"    )
+  (set-face-foreground 'font-lock-function-name-face   "lightblue"     )
+  (set-face-foreground 'font-lock-keyword-face         "turquoise"     )
+  (set-face-foreground 'font-lock-string-face          "tan"           )
+  (set-face-foreground 'font-lock-type-face            "palegreen"     )
+  (set-face-foreground 'font-lock-variable-name-face   "khaki"         )
+  (set-face-foreground 'font-lock-warning-face         "pink"          )
   )
 
 
@@ -868,11 +879,11 @@
        (global-font-lock-mode      t)
        (my-common-font-lock         )
        ;; default color scheme
-       (set-background-color             "black")
-       (set-foreground-color             "wheat")
-       (set-cursor-color                 "purple")
+       (set-background-color             "black"    )
+       (set-foreground-color             "wheat"    )
+       (set-cursor-color                 "purple"   )
        (set-face-foreground 'modeline    "firebrick")
-       (set-face-background 'modeline    "wheat")
+       (set-face-background 'modeline    "wheat"    )
        
        ;; Maximum colors
        (setq font-lock-maximum-decoration
@@ -912,6 +923,13 @@
 
 (transient-mark-mode          1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;; turns on word-wrapping in the current buffer, and rebinds C-a, C-e,
+;; and C-k to commands that operate by visual lines instead of logical
+;; lines.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
+(global-visual-line-mode      1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; underline highlighted region
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -920,30 +938,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; move (1) line when at bottom of screen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq scroll-step            1 )
+(setq scroll-step             1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; replace highlighted text with keystroke
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(delete-selection-mode       t )
+(delete-selection-mode        t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; automatic newline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq c-auto-newline         t )
+(setq c-auto-newline          t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto-indentation mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq c-toggle-auto-state    1 )   
+(setq c-toggle-auto-state     1)   
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hungry delete key
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq c-toggle-hungry-state  1 )   
+(setq c-toggle-hungry-state   1)   
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; comment column
@@ -981,6 +999,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Turn on line/column number modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(fringe-mode          0)
 
 (require 'linum)
 
