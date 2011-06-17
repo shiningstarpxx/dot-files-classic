@@ -68,6 +68,27 @@
 ;;     C-y (you can do this as many times as you want) 
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Commenting 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Insert or realign comment on current line; alternatively, comment or uncomment
+;; the region (comment-dwim). 
+;;     M-
+;; Kill comment on current line (comment-kill). 
+;;     C-u M-
+;;
+;; Set comment column (comment-set-column).  
+;;     C-x 
+;;
+;; Like <RET> followed by inserting and aligning a comment (comment-indent-new-line).
+;; See Multi-Line Comments. 
+;;     C-M-j
+;;     M-j
+;;
+;; Add or remove comment delimiters on all the lines in the region.
+;;     M-x comment-region
+;;     C-c C-c (in C-like modes)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Files 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; To save the current buffer:
@@ -139,6 +160,9 @@
 ;;
 ;; Example:
 ;;   M-x byte-compile-file RET js2.el RET
+;;
+;; To byte compile everything
+;;   C-u 0 M-x byte-recompile-directory
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -356,27 +380,28 @@
 ;; Set file associations for automatic charset conversions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(modify-coding-system-alist 'file "\\.m\\'"    'utf-8-unix)
-(modify-coding-system-alist 'file "\\.c\\'"    'utf-8-unix)
-(modify-coding-system-alist 'file "\\.h\\'"    'utf-8-unix)
-(modify-coding-system-alist 'file "\\.hpp\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.H\\'"    'utf-8-unix)
-(modify-coding-system-alist 'file "\\.cpp\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.C\\'"    'utf-8-unix)
-(modify-coding-system-alist 'file "\\.idl\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.java\\'" 'utf-8-unix)
-(modify-coding-system-alist 'file "\\.js\\'"   'utf-8-unix)
-(modify-coding-system-alist 'file "\\.sh\\'"   'utf-8-unix)
-(modify-coding-system-alist 'file "\\.conf\\'" 'utf-8-unix)
-(modify-coding-system-alist 'file "\\.xml\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.xul\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.rdf\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.html\\'" 'utf-8-unix)
-(modify-coding-system-alist 'file "\\.css\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.vm\\'"   'utf-8-unix)
-(modify-coding-system-alist 'file "\\.php\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.xsd\\'"  'utf-8-unix)
-(modify-coding-system-alist 'file "\\.dtd\\'"  'utf-8-unix)
+(modify-coding-system-alist 'file "\\.m\\'"        'utf-8-unix)
+(modify-coding-system-alist 'file "\\.c\\'"        'utf-8-unix)
+(modify-coding-system-alist 'file "\\.h\\'"        'utf-8-unix)
+(modify-coding-system-alist 'file "\\.hpp\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.H\\'"        'utf-8-unix)
+(modify-coding-system-alist 'file "\\.cpp\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.C\\'"        'utf-8-unix)
+(modify-coding-system-alist 'file "\\.idl\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.java\\'"     'utf-8-unix)
+(modify-coding-system-alist 'file "\\.js\\'"       'utf-8-unix)
+(modify-coding-system-alist 'file "\\.coffee\\'"   'utf-8-unix)
+(modify-coding-system-alist 'file "\\.sh\\'"       'utf-8-unix)
+(modify-coding-system-alist 'file "\\.conf\\'"     'utf-8-unix)
+(modify-coding-system-alist 'file "\\.xml\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.xul\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.rdf\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.html\\'"     'utf-8-unix)
+(modify-coding-system-alist 'file "\\.css\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.vm\\'"       'utf-8-unix)
+(modify-coding-system-alist 'file "\\.php\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.xsd\\'"      'utf-8-unix)
+(modify-coding-system-alist 'file "\\.dtd\\'"      'utf-8-unix)
 
 ;; Emacs recognizes which kind of end-of-line conversion to use based on the contents
 ;; of the file: if it sees only carriage-returns, or only carriage-return linefeed 
@@ -571,6 +596,7 @@
 (require 'highlight-current-line)
 (highlight-current-line-on  t)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C/C++ mode. Esp for identation settings, require CC-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -647,9 +673,14 @@
 ;;  occurrence, but you can press "!" to rename all.
 
 (require 'js2-highlight-vars)
-(if (featurep 'js2-highlight-vars)
-    (js2-highlight-vars-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Coffeescript mode
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'coffee-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CSS indentation, autoload css-mode
@@ -835,6 +866,7 @@
                (objc-mode       . t)
                (javascript-mode . t)
                (js2-mode        . t)
+               (coffee-mode     . t)
                (css-mode        . t)
                (scala-mode      . t)
                (clojure-mode    . t)
@@ -912,7 +944,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; remove tabs from the idents
+;; remove tabs from the idents/use spaces instead of tab characters
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq-default indent-tabs-mode nil)
@@ -992,6 +1024,7 @@
 ;;
 ;; Note - default code identation styles
 ;; gnu, k&r, bsd, stroustrup, whitesmith, ellemtel, linux, python, java
+;;
 ;; auto identation constant definition
 ;; explicit declaration of all syntactic attributes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -999,13 +1032,13 @@
 (defconst my-java-programming-style
   ;; hanging brace setup
   '((c-hanging-braces-alist .             
-                            ((brace-list-open           after)
-                             (brace-entry-open          after)
-                             (substatement-open        before)
-                             (block-close                 . c-snug-do-while)
-                             (extern-lang-open          after)
-                             (inexpr-class-open         after)
-                             (inexpr-class-close       before)
+                            ((brace-list-open                  after)
+                             (brace-entry-open                 after)
+                             (substatement-open               before)
+                             (block-close          . c-snug-do-while)
+                             (extern-lang-open                 after)
+                             (inexpr-class-open                after)
+                             (inexpr-class-close              before)
                              ))
     ;; cleanup shortcuts
     (c-cleanup-list                .      
@@ -1025,11 +1058,9 @@
                                     (case-label                  . *)
                                     (statement-case-intro        . +)
                                     ))
-    (c-lineup-C-comments             1)
-    (c-comment-prefix-regexp         1)
     (c-lineup-math                   1)
     (c-lineup-inexpr-block           1)
-    
+
     ) "My Java Programming Style")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1041,13 +1072,13 @@
 (defconst my-c-cpp-programming-style
   ;; hanging brace setup
   '((c-hanging-braces-alist .             
-                            ((brace-list-open           after)
-                             (brace-entry-open          after)
-                             (substatement-open        before)
-                             (block-close                 . c-snug-do-while)
-                             (extern-lang-open          after)
-                             (inexpr-class-open         after)
-                             (inexpr-class-close       before)
+                            ((brace-list-open                  after)
+                             (brace-entry-open                 after)
+                             (substatement-open               before)
+                             (block-close          . c-snug-do-while)
+                             (extern-lang-open                 after)
+                             (inexpr-class-open                after)
+                             (inexpr-class-close              before)
                              ))
     ;; cleanup shortcuts
     (c-cleanup-list                .      
@@ -1059,20 +1090,19 @@
     ;; indentation offsets 
     (c-offsets-alist               .      
                                    ((access-label                . -2)
-                                    (inline-open                 . 0)
-                                    (substatement-open           . 0)
-                                    (statement-block-intro       . +)
-                                    (block-close                 . 0)
-                                    (do-while-closure            . 0)
-                                    (case-label                  . *)
-                                    (statement-case-intro        . +)
+                                    (inline-open                 .  0)
+                                    (substatement-open           .  0)
+                                    (statement-block-intro       .  +)
+                                    (block-close                 .  0)
+                                    (do-while-closure            .  0)
+                                    (case-label                  .  *)
+                                    (statement-case-intro        .  +)
                                     ))
-    (c-lineup-C-comments             1)
-    (c-comment-prefix-regexp         1)
     (c-lineup-math                   1)
     (c-lineup-inexpr-block           1)
     
     ) "My C/C++ Programming Style")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -1728,6 +1758,8 @@
                 ("\\.css\\'"    . css-mode          )
                 ("\\.js$"       . js2-mode          )
                 ("\\.json$"     . js2-mode          )
+                ("\\.coffee$"   . coffee-mode       )
+                ("Cakefile"     . coffee-mode       )
                 ("\\.java$"     . java-mode         )
                 ("\\.scala$"    . scala-mode        )
                 ("\\.clj$"      . clojure-mode      )
@@ -1798,6 +1830,8 @@
 
 (add-hook 'c-mode-hook
           '(lambda ()
+             (auto-fill-mode                         1)    
+             (setq fill-column                      80)
              (local-set-key (quote [C-f12]) (quote compile))
              (local-set-key "" (quote compile))
              (local-set-key (quote [C-f11]) (quote gdb))
@@ -1812,6 +1846,8 @@
 
 (add-hook 'objc-mode-hook
           '(lambda ()
+             (auto-fill-mode                         1)    
+             (setq fill-column                      80)
              (local-set-key (quote [C-f12]) (quote compile))
              (local-set-key "" (quote compile))
              (local-set-key (quote [C-f11]) (quote gdb))
@@ -1824,8 +1860,101 @@
 ;; Java hook section, called on entry of Java mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Java mode hack to get a little better Java 5+ support
+(let* ((java-keywords
+  (eval-when-compile
+    (regexp-opt
+     '("catch" "do" "else" "super" "this" "finally" "for" "if"
+       "implements" "extends" "throws" "instanceof" "new"
+       "interface" "return" "switch" "throw" "try" "while"))))
+       ;; Classes immediately followed by an object name.
+       (java-type-names
+        `(mapconcat 'identity
+                    (cons
+                     ,(eval-when-compile
+                        (regexp-opt '("boolean" "char" "byte" "short" "int" "long"
+                                      "float" "double" "void")))
+                     java-font-lock-extra-types)
+                    "\\|"))
+       (java-type-names-depth `(regexp-opt-depth ,java-type-names))
+       ;; These are eventually followed by an object name.
+       (java-type-specs
+        (eval-when-compile
+          (regexp-opt
+           '("abstract" "const" "final" "synchronized" "transient" "static"
+             "volatile" "public" "private" "protected" "native"
+             ;; Carl Manning <caroma@xxxxxxxxxx> says this is new.
+             "strictfp"))))
+       )
+
+  (setq java-font-lock-keywords-3
+        (append
+         
+         (list
+          ;; support static import statements
+          '("\\<\\(import\\)\\>\\s-+\\(static\\)\\s-+\\(\\sw+\\)"
+            (1 font-lock-keyword-face)
+            (2 font-lock-keyword-face)
+            (3 (if (equal (char-after (match-end 0)) ?\.)
+                   'jde-java-font-lock-package-face
+                 'font-lock-type-face))
+            ("\\=\\.\\(\\sw+\\)" nil nil
+             (1 (if (and (equal (char-after (match-end 0)) ?\.)
+                         (not (equal (char-after (+ (match-end 0) 1)) ?\*)))
+                    'jde-java-font-lock-package-face
+                  'font-lock-type-face))))
+          )
+         
+         java-font-lock-keywords-2
+         
+         ;; More complicated regexps for more complete highlighting for types.
+         ;; We still have to fontify type specifiers individually, as Java is hairy.
+         (list
+          ;; Fontify class names with ellipses
+          `(eval .
+                 (cons (concat "\\<\\(" ,java-type-names "\\)\\>\\.\\.\\.[^.]")
+                       '(1 font-lock-type-face)))
+          ;; Fontify random types immediately followed by an item or items.
+          `(eval .
+                 (list (concat "\\<\\(\\(?:" ,java-type-names "\\)"
+                               "\\(?:\\(?:<.*>\\)\\|\\>\\)\\(?:\\.\\.\\.\\)?\\)"
+                               "\\([ \t]*\\[[ \t]*\\]\\)*"
+                               "\\([ \t]*\\sw\\)")
+                       ;; Fontify each declaration item.
+                       (list 'font-lock-match-c-style-declaration-item-and-skip-to-next
+                             ;; Start and finish with point after the type specifier.
+                             (list 'goto-char (list 'match-beginning
+                                                    (+ ,java-type-names-depth 3)))
+                             (list 'goto-char (list 'match-beginning
+                                                    (+ ,java-type-names-depth 3)))
+                             ;; Fontify as a variable or function name.
+                             '(1 (if (match-beginning 2)
+                                     font-lock-function-name-face
+                                   font-lock-variable-name-face)))))
+          ;; Fontify those that are eventually followed by an item or items.
+          (list (concat "\\<\\(" java-type-specs "\\)\\>"
+                        "\\([ \t]+\\sw+\\>"
+                        "\\([ \t]*\\[[ \t]*\\]\\)*"
+                        "\\)*")
+                ;; Fontify each declaration item.
+                '(font-lock-match-c-style-declaration-item-and-skip-to-next
+                  ;; Start with point after all type specifiers.
+                  (goto-char (or (match-beginning 5) (match-end 1)))
+                  ;; Finish with point after first type specifier.
+                  (goto-char (match-end 1))
+                  ;; Fontify as a variable or function name.
+                  (1 (if (match-beginning 2)
+                         font-lock-function-name-face
+                       font-lock-variable-name-face))))
+          
+          )))
+  )
+
+
 (add-hook 'java-mode-hook
           '(lambda ()
+             (auto-fill-mode                         1)    
+             (setq fill-column                      80)
              (c-add-style "my-java-programming-style" my-java-programming-style t)
              (c-set-style "my-java-programming-style")
              )
@@ -1833,11 +1962,13 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Scala hook section, called on entry of Javascript mode
+;; Scala hook section, called on entry of Scala ode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'scala-mode-hook
           '(lambda ()
+             (auto-fill-mode                         1)    
+             (setq fill-column                      80)
              (c-add-style "my-scala-programming-style" my-java-programming-style t)
              (c-set-style "my-scala-programming-style")
              )
@@ -1865,14 +1996,56 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CoffeeScript hook section, called on entry of CoffeeScript mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun coffee-custom ()
+  "coffee-mode-hook"
+  (set (make-local-variable 'tab-width) 2))
+
+(defun coffee-custom ()
+  "coffee-mode-hook"
+
+  ;; CoffeeScript uses two spaces.
+  (set (make-local-variable 'tab-width) 2)
+
+  ;; Use JS2 mode for viewing compiled coffeescript
+  (setq coffee-js-mode 'js2-mode)
+
+  ;; If you don't want your compiled files to be wrapped
+  (setq coffee-args-compile '("-c" "--bare"))
+
+  ;; *Messages* spam
+  (setq coffee-debug-mode t)
+
+  ;; Emacs key binding
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+
+  ;; Riding edge.
+  (setq coffee-command "~/dev/coffee"))
+
+  ;; Compile '.coffee' files on every save
+  (add-hook 'after-save-hook
+      '(lambda ()
+         (when (string-match "\.coffee$" (buffer-name))
+          (coffee-compile-file))))
+
+
+(add-hook 'coffee-mode-hook
+  '(lambda() 
+     (coffee-custom)
+     )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Text mode hook section
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'text-mode-hook 
           '(lambda ()
-             (auto-fill-mode     1)
-             (setq tab-width     4)
-             (setq fill-column   80)
+             (auto-fill-mode                         1)    
+             (setq fill-column                      80)
+             (setq tab-width                         4)
              (local-set-key "^C-^t" 'ispell-complete-word)
              )
           )
@@ -1880,8 +2053,9 @@
 
 (add-hook 'sh-mode-hook
           '(lambda ()
+             (auto-fill-mode                         1)    
+             (setq fill-column                      80)
              (local-set-key [return] 'newline-and-indent)
-             (setq fill-column   80)
              )
           )
 
