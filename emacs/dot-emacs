@@ -827,6 +827,7 @@
  '(linum ((t (:inherit (shadow default) :background "gray10" :foreground "dimgray"))))
  '(font-lock-builtin-face       ((((class color) (min-colors 88) (background light)) (:foreground "lightsteelblue"   ))))
  '(font-lock-comment-face       ((((class color) (min-colors 88) (background light)) (:foreground "orangered"        ))))
+ '(font-lock-doc-face           ((((class color) (min-colors 88) (background light)) (:foreground "orangered"        ))))
  '(font-lock-constant-face      ((((class color) (min-colors 88) (background light)) (:foreground "aquamarine"       ))))
  '(font-lock-function-name-face ((((class color) (min-colors 88) (background light)) (:foreground "lightblue"        ))))
  '(font-lock-keyword-face       ((((class color) (min-colors 88) (background light)) (:foreground "turquoise"        ))))
@@ -860,6 +861,7 @@
   ;; set-font-lock color scheme
   (set-face-foreground 'font-lock-builtin-face         "lightsteelblue")
   (set-face-foreground 'font-lock-comment-face         "orangered"     )
+  (set-face-foreground 'font-lock-doc-face             "orangered"     )
   (set-face-foreground 'font-lock-constant-face        "aquamarine"    )
   (set-face-foreground 'font-lock-function-name-face   "lightblue"     )
   (set-face-foreground 'font-lock-keyword-face         "turquoise"     )
@@ -1898,6 +1900,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java hook section, called on entry of Java mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; Java mode hack to get a little better Java 5+ support
 (let* ((java-keywords
