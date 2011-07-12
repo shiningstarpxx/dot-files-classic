@@ -1425,7 +1425,10 @@
 
 (setq c++-font-lock-extra-types
       (append
-       c-font-lock-extra-types       c++-font-lock-extra-types))
+       c-font-lock-extra-types
+       c++-font-lock-extra-types
+       )
+      )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1803,6 +1806,7 @@
                 ("\\.scala$"    . scala-mode        )
                 ("\\.clj$"      . clojure-mode      )
                 ("\\.sql$"      . sql-mode          )
+                ("\\.epl$"      . sql-mode          )
                 ("\\.tcl$"      . tcl-mode          )
                 ("\\.csh$"      . csh-mode          )
                 ("\\.sh$"       . sh-mode           )
