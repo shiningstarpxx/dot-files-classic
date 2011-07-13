@@ -14,7 +14,7 @@ function hg_dirty()
     | awk '$1 == "?" { unknown = 1 } 
            $1 != "?" { changed = 1 }
            END {
-             if (changed) printf "!"
+             if (changed) printf "*"
              else if (unknown) printf "?" 
            }'
 }
@@ -36,12 +36,12 @@ function hg_branch()
 
 function git_dirty()
 {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
 
 function git_branch()
 {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/on \1$(git_dirty)/"
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/on \1$(git_dirty)/"
 }
 
 ######################################################################################
