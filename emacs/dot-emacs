@@ -26,24 +26,25 @@
 ;; To move about the current buffer in emacs use the cursor keys. 
 ;; A selection of other keys: 
 ;;
-;; C-p   previous line 
-;; C-n   next line 
-;; C-b   back one character 
-;; M-b   back one word 
-;; C-f   forward one character 
-;; M-f   forward one word 
-;; C-f   beginning of line 
-;; C-v   page down 
-;; M-v   page up 
+;; C-p    previous line 
+;; C-n    next line 
+;; C-b    back one character 
+;; M-b    back one word 
+;; C-f    forward one character 
+;; M-f    forward one word 
+;; C-home beginning of line 
+;; C-end  end of line
+;; C-v    page down 
+;; M-v    page up 
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Other commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; C-s   locate (search within file)
-;; C-r   search backwards
-;; C-u   undo
-;; C-y   yank from kill buffer
+;; C-s    locate (search within file)
+;; C-r    search backwards
+;; C-u    undo
+;; C-y    yank from kill buffer
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Go to a specific line number
@@ -2202,57 +2203,43 @@
   (cd "~/Projects/AfterText"))
 
 
+;; You can also use CTRL-x CTRL-v to do a “Find alternative file” and choose the same
+;; file that you are currently editing.
+
+(defun refresh-file ()
+  "Reload the file you're currently editing."
+  (interactive)
+  (revert-buffer t t t)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Key Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key [f2]       'reload-dot-emacs            )
-(global-set-key [f3]       'edit-dot-emacs              )
-(global-set-key [f4]       'cut-ctrlM                   )
-(global-set-key [f5]       'save-buffer                 )
+(global-set-key [f2]               'reload-dot-emacs            )
+(global-set-key [f3]               'edit-dot-emacs              )
+(global-set-key [f4]               'cut-ctrlM                   )
+(global-set-key [f5]               'save-buffer                 )
 
-(global-set-key [f6]       'replace-string              )
-(global-set-key [f7]       'query-replace               )
-(global-set-key [f8]       'query-replace-regexp        )
-(global-set-key [f9]       'bury-buffer                 )
-(global-set-key [f10]      'turn-linum-on               )
-(global-set-key [f11]      'turn-linum-off              )
-(global-set-key [f12]      'goto-line                   ) 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Keypad keys from VT-100 
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (global-set-key "\M-[M" 'scroll-down)      ;;; PgUp = scroll-down
-;; (global-set-key "\M-[H\M-[2J" 'scroll-up)  ;;; PgDn = scroll-up
-;; (global-set-key "\M-[H\M-[H"               ;;; Home Home = start of line 
-;;    'beginning-of-line)                     ;;;    (note: that's Home twice!)
-;; (global-set-key "\M-[K" 'end-of-line)      ;;; End = end of line
-;; (global-set-key "\M-[L" 'overwrite-mode)   ;;; Insert = toggle overwrite
-;; (global-set-key "\M-OA" 'previous-line)    ;;; Up arrow = previous line
-;; (global-set-key "\M-OB" 'next-line)        ;;; Down arrow = next line
-;; (global-set-key "\M-OC" 'forward-char)     ;;; Right arrow = forward char
-;; (global-set-key "\M-OD" 'backward-char)    ;;; Left arrow = backward char
-;; (global-set-key "\e\e[H" 'front)           ;;; Esc Home = front of file
-;; (global-set-key "\e\e[K" 'end-of-buffer)   ;;; Esc End = end of file
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key [f6]               'replace-string              )
+(global-set-key [f7]               'query-replace               )
+(global-set-key [f8]               'query-replace-regexp        )
+(global-set-key [f9]               'refresh-file                )
+(global-set-key [f12]              'goto-line                   ) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Electric Buffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key "\C-x\C-b" 'electric-buffer-list        )
-(global-set-key "\C-xb"    'bs-show                     )
+(global-set-key "\C-x\C-b"         'electric-buffer-list )
+(global-set-key "\C-xb"            'bs-show              )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Comment out a region.  To uncomment, just undo "\C-u"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key "\C-q"     'comment-region              )
-(global-set-key "\C-u"     'undo                        )
+(global-set-key "\C-q"             'comment-region       )
+(global-set-key "\C-u"             'undo                 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Here is some Emacs Lisp that will make the % key show the matching
@@ -2260,7 +2247,7 @@
 ;; parenthesis, it simply inserts a % like normal.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key "%"        'match-paren                 )
+(global-set-key "%"                'match-paren         )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Home End and Delete keys
@@ -2273,10 +2260,10 @@
 ;; Keybindings to automatically paste copyright notice
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key [(alt f1)]    'paste-atsl-copyright            )
-(global-set-key [(alt f2)]    'paste-atsl-mpl-copyright-html   )
-(global-set-key [(alt f3)]    'paste-atsl-mpl-copyright        )
-(global-set-key [(alt f4)]    'paste-mpl-copyright             )
+(global-set-key [(alt f1)]         'paste-atsl-copyright            )
+(global-set-key [(alt f2)]         'paste-atsl-mpl-copyright-html   )
+(global-set-key [(alt f3)]         'paste-atsl-mpl-copyright        )
+(global-set-key [(alt f4)]         'paste-mpl-copyright             )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
