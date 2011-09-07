@@ -44,21 +44,20 @@ export SYSHOSTFILE=/etc/hosts
 
 # OS-X Specific, with MacPorts and MySQL installed
 if [ "$OS" = "darwin" ] ; then
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH  
+    export PATH=/opt/local/bin:/opt/local/sbin:$PATH  
 fi
  
 # add your bin folder to the path, if you have it.  It's a good place to add all your scripts
 if [ -d ~/Applications/bin ]; then
-  export PATH=:~/Applications/bin:$PATH  
+    export PATH=:~/Applications/bin:$PATH  
 fi
-
 
 ########################################################################################
 # Load in .bashrc
 ########################################################################################
 
 if [ -e ~/.bashrc ]; then
-  source ~/.bashrc
+    source ~/.bashrc
 fi
  
  
@@ -87,7 +86,9 @@ export JAVA_HOME=/Library/Java/Home
 # Multiprocess Aquamacs Alias
 ########################################################################################
 
-alias aquamacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
+alias aquaemacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
+alias aquamacs='/Applications/Aquamacs.app/Contents/MacOS/Aquamacs'
+
 alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
 
 ########################################################################################
