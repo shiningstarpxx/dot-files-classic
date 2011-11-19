@@ -152,6 +152,8 @@ alias systail='tail -f /var/log/system.log'
 alias untar='tar xvzf'
 alias objectdump='od'
 
+alias octave="exec '/Applications/Octave.app/Contents/Resources/bin/octave'"
+
 #######################################################################################
 # Cleanup Resource Forks
 #######################################################################################
