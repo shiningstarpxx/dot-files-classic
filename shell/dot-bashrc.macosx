@@ -254,3 +254,9 @@ function aws-usecert()
     echo "Using AWS EC2 X.509 certificate : [$1]"
     export EC2_CERT=$1
 }
+
+function aws-use-endpoint()
+{
+    echo "Using AWS region endpoint : [$1]"
+    export EC2_URL="http://$1"
+}
