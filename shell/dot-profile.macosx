@@ -49,7 +49,9 @@ fi
  
 # add your bin folder to the path, if you have it.  It's a good place to add all your scripts
 if [ -d ~/Applications/bin ]; then
-    export PATH=:~/Applications/bin:$PATH  
+    export LOCAL_BIN_PATH=~/Applications/bin
+    export EC2_HOME=$LOCAL_BIN_PATH/aws-ec2-api-tools-1.5.2.4
+    export PATH=$LOCAL_BIN_PATH:$EC2_HOME/bin:$PATH  
 fi
 
 ########################################################################################
@@ -59,7 +61,16 @@ fi
 if [ -e ~/.bashrc ]; then
     source ~/.bashrc
 fi
- 
+
+########################################################################################
+# Load in bash-completion package
+########################################################################################
+
+if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+else
+    complete -W "$(echo $(grep '^ssh ' .bash_history | sort -u | sed 's/^ssh //'))" ssh
+fi
  
 ########################################################################################
 # Hello Messsage

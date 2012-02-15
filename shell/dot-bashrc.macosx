@@ -103,8 +103,7 @@ function fstr()
 {
     OPTIND=1
     local case=""
-    local usage="fstr: find string in files.
-Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    local usage="fstr: find string in files. Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
     while getopts :it opt
     do
         case "$opt" in
@@ -232,4 +231,26 @@ function repeat()
     for ((i=1; i <= max ; i++)); do
         eval "$@";
     done
+}
+
+function tmslow()
+{
+    echo "Reducing Time Machine priority..."
+    sudo renice +5 -p `ps -axc | grep backupd | awk '{ print \$1 }'`
+}
+
+#######################################################################################
+# AWS Helpers
+#######################################################################################
+
+function aws-usekey()
+{
+    echo "Using AWS EC2 X.509 private key : [$1]"
+    export EC2_PRIVATE_KEY=$1
+}
+
+function aws-usecert()
+{
+    echo "Using AWS EC2 X.509 certificate : [$1]"
+    export EC2_CERT=$1
 }
