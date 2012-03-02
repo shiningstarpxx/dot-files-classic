@@ -35,6 +35,7 @@ export PLATFORM="$MACHINE-$OS-$OSVERSION"
 ########################################################################################
 # Put list of remote hosts in ~/.hosts
 ########################################################################################
+
 export HOSTFILE=$HOME/.hosts
 export SYSHOSTFILE=/etc/hosts   
 
@@ -44,13 +45,46 @@ export SYSHOSTFILE=/etc/hosts
 
 # OS-X Specific, with MacPorts and MySQL installed
 if [ "$OS" = "darwin" ] ; then
+
+    # MacPorts versions take precedence
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH
     
     # Override XCode4/gcc tendency to use arch=PPC when building libraries
     export ARCHFLAGS="-arch i386 -arch x86_64"
+
+    export CORE_SERVICES_PATH=/System/Library/Frameworks/CoreServices.framework
+    export LAUNCH_SERVICES_PATH=Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/
+    export LS_REGISTER_PATH=$CORE_SERVICES_PATH/$LAUNCH_SERVICES_PATH
+
+    alias rebuild-menu='$LS_REGISTER_PATH/lsregister -kill -r -domain local -domain system -domain user'
+
+    # Octave CLI
+    alias octave="exec '/Applications/Octave.app/Contents/Resources/bin/octave'"
+
+    ########################################################################################
+    # Multiprocess Aquamacs Alias
+    ########################################################################################
+
+    alias aquaemacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
+    alias aquamacs='/Applications/Aquamacs.app/Contents/MacOS/Aquamacs'
+    alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
+
+    ########################################################################################
+    # Open file in the current Aquamacs window
+    ########################################################################################
+
+    alias openwithaquaemacs='open -a /Applications/Aquamacs\ Emacs.app $1'
+    alias openwithaquamacs='open -a /Applications/Aquamacs.app $1'
+
+    ########################################################################################
+    # Java HOME and CLASSPATH
+    ########################################################################################
+    
+    export JAVA_HOME=/Library/Java/Home
+
 fi
  
-# add your bin folder to the path, if you have it.  It's a good place to add all your scripts
+# Add personal bin folder to the path, if you have it.
 if [ -d ~/Applications/bin ]; then
     export LOCAL_BIN_PATH=~/Applications/bin
     export EC2_HOME=$LOCAL_BIN_PATH/aws-ec2-api-tools-1.5.2.4
@@ -88,30 +122,12 @@ echo -ne "Time  :  "; date
 ########################################################################################
 
 export CLICOLOR=1
+
+export PROMPT_USER="\[\033[1;31m\]\u\[\033[0m\]"
+export PROMPT_HOST="\[\033[1;35m\]\h\[\033[0m\]"
+export PROMPT_PATH="\[\033[1;33m\]\w\[\033[0m\] \[\033[1;32m\]"
+
 export PS1='\n\[\033[1;31m\]\u\[\033[0m\]@\[\033[1;35m\]\h\[\033[0m\]:\[\033[1;33m\]\w\[\033[0m\] \[\033[1;32m\]$(hg_in_repo)$(hg_branch)$(hg_dirty)$(git_branch)\[\033[0m\] \n$ '
-
-########################################################################################
-# Java HOME and CLASSPATH
-########################################################################################
-
-export JAVA_HOME=/Library/Java/Home
-
-########################################################################################
-# Multiprocess Aquamacs Alias
-########################################################################################
-
-alias aquaemacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
-alias aquamacs='/Applications/Aquamacs.app/Contents/MacOS/Aquamacs'
-
-alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
-
-########################################################################################
-# Open file in the current Aquamacs window
-########################################################################################
-
-alias openwithaquaemacs='open -a /Applications/Aquamacs\ Emacs.app $1'
-
-alias openwithaquamacs='open -a /Applications/Aquamacs.app $1'
 
 ########################################################################################
 # Always use VIM
@@ -134,14 +150,10 @@ alias git-add-upstream='git remote add upstream'
 alias git-pull-upstream='git pull upstream master'
 
 #######################################################################################
-#
-# Set command aliases
-#
+# Basic command aliases
 #######################################################################################
 
 alias reload-bash='source ~/.profile'
-
-alias rebuild-menu='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
 
 alias hh='history'
 alias jj='jobs -l'
@@ -166,8 +178,6 @@ alias systail='tail -f /var/log/system.log'
 alias untar='tar xvzf'
 alias objectdump='od'
 
-alias octave="exec '/Applications/Octave.app/Contents/Resources/bin/octave'"
-
 #######################################################################################
 # Cleanup Resource Forks
 #######################################################################################
@@ -178,7 +188,7 @@ alias cleanresforks='find . -name \*._*|xargs \rm'
 # Copies folder and all sub files and folders, preserving security and dates
 #######################################################################################
 
-alias cp_folder="cp -Rpv" 
+alias cp-folder="cp -Rpv" 
 
 #######################################################################################
 # Shows most used commands
@@ -191,7 +201,7 @@ alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' 
 # Lists folders and files sizes in the current folder
 #######################################################################################
 
-alias ducks='du -cksh * | sort -rn|head -11'
+alias ducks='du -cksh * | sort -rn | head -11'
 alias du1='du -h -d 1'
 
 #######################################################################################
@@ -244,6 +254,6 @@ alias maven='mvn3'
 ######################################################################################
 
 alias hostedit='sudo vim ${SYSHOSTFILE}'
-
+alias myhostedit='sudo vim ${HOSTFILE}'
 
 
