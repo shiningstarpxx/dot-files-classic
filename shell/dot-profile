@@ -117,12 +117,10 @@ if [ -e ~/.bashrc ]; then
 fi
 
 ########################################################################################
-# Hello Messsage
+# Print system information
 ########################################################################################
 
-echo -e  "Kernel: " `uname -smr`
-echo -ne "Uptime:  "; uptime
-echo -ne "Time  :  "; date
-
-
+if [ `type -t sysinfo` = "function" ] ; then
+    sysinfo
+fi
 
