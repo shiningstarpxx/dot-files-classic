@@ -1,6 +1,13 @@
 # !/bin/bash
 #
-# Shell Profile
+# Login Shell Profile
+# -------------------
+# Definitions for:
+# 1. Login messages
+# 2. Shell Prompt
+# 3. Shell PATH environment
+#
+# @author paolodedios
 #
 ########################################################################################
 
@@ -33,54 +40,23 @@ export MACHINE=`uname -m | sed -e 's/  */-/g;y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdef
 export PLATFORM="$MACHINE-$OS-$OSVERSION"
 
 ########################################################################################
-# Put list of remote hosts in ~/.hosts
-########################################################################################
-
-export HOSTFILE=$HOME/.hosts
-export SYSHOSTFILE=/etc/hosts   
-
-########################################################################################
 # Path
 ########################################################################################
 
-# OS-X Specific, with MacPorts and MySQL installed
+# OS-X Specific, with MacPorts installed
 if [ "$OS" = "darwin" ] ; then
 
     # MacPorts versions take precedence
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH
     
-    # Override XCode4/gcc tendency to use arch=PPC when building libraries
-    export ARCHFLAGS="-arch i386 -arch x86_64"
-
-    export CORE_SERVICES_PATH=/System/Library/Frameworks/CoreServices.framework
-    export LAUNCH_SERVICES_PATH=Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/
-    export LS_REGISTER_PATH=$CORE_SERVICES_PATH/$LAUNCH_SERVICES_PATH
-
-    alias rebuild-menu='$LS_REGISTER_PATH/lsregister -kill -r -domain local -domain system -domain user'
-
-    # Octave CLI
-    alias octave="exec '/Applications/Octave.app/Contents/Resources/bin/octave'"
-
-    ########################################################################################
-    # Multiprocess Aquamacs Alias
-    ########################################################################################
-
-    alias aquaemacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
-    alias aquamacs='/Applications/Aquamacs.app/Contents/MacOS/Aquamacs'
-    alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
-
-    ########################################################################################
-    # Open file in the current Aquamacs window
-    ########################################################################################
-
-    alias openwithaquaemacs='open -a /Applications/Aquamacs\ Emacs.app $1'
-    alias openwithaquamacs='open -a /Applications/Aquamacs.app $1'
-
-    ########################################################################################
-    # Java HOME and CLASSPATH
-    ########################################################################################
-    
+    # Java HOME and CLASSPATH    
     export JAVA_HOME=/Library/Java/Home
+
+    # Python virtual environment
+    if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
+        export PYTHON_HOME=$HOME/.virtualenvs
+        source /usr/local/bin/virtualenvwrapper.sh > /dev/null 2>&1
+    fi
 
 fi
  
@@ -89,6 +65,11 @@ if [ -d ~/Applications/bin ]; then
     export LOCAL_BIN_PATH=~/Applications/bin
     export EC2_HOME=$LOCAL_BIN_PATH/aws-ec2-api-tools-1.5.2.4
     export PATH=$LOCAL_BIN_PATH:$EC2_HOME/bin:$PATH  
+fi
+
+# Personal projects directory
+if [ -d $HOME/Projects ]; then
+    export PROJECT_HOME=$HOME/Projects
 fi
 
 ########################################################################################
@@ -100,16 +81,6 @@ if [ -e ~/.bashrc ]; then
 fi
 
 ########################################################################################
-# Load in bash-completion package
-########################################################################################
-
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
-else
-    complete -W "$(echo $(grep '^ssh ' .bash_history | sort -u | sed 's/^ssh //'))" ssh
-fi
- 
-########################################################################################
 # Hello Messsage
 ########################################################################################
 
@@ -117,143 +88,5 @@ echo -e  "Kernel: " `uname -smr`
 echo -ne "Uptime:  "; uptime
 echo -ne "Time  :  "; date
 
-########################################################################################
-# Set Prompt
-########################################################################################
-
-export CLICOLOR=1
-
-export PROMPT_USER="\[\033[1;31m\]\u\[\033[0m\]"
-export PROMPT_HOST="\[\033[1;35m\]\h\[\033[0m\]"
-export PROMPT_PATH="\[\033[1;33m\]\w\[\033[0m\] \[\033[1;32m\]"
-
-export PS1='\n\[\033[1;31m\]\u\[\033[0m\]@\[\033[1;35m\]\h\[\033[0m\]:\[\033[1;33m\]\w\[\033[0m\] \[\033[1;32m\]$(hg_in_repo)$(hg_branch)$(hg_dirty)$(git_branch)\[\033[0m\] \n$ '
-
-########################################################################################
-# Always use VIM
-########################################################################################
-
-alias vi='vim'
-
-########################################################################################
-# Mercurial aliases
-########################################################################################
-
-alias hgstat='hg status'
-
-########################################################################################
-# Git/GitHub aliases
-########################################################################################
-
-alias gitstat='git status'
-alias git-add-upstream='git remote add upstream'
-alias git-pull-upstream='git pull upstream master'
-
-#######################################################################################
-# Basic command aliases
-#######################################################################################
-
-alias reload-bash='source ~/.profile'
-
-alias hh='history'
-alias jj='jobs -l'
-alias which='type -a'
-alias path='echo -e ${PATH//:/\\n}'
-alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-
-alias cd..='cd ..'
-alias ..='cd ..'
-alias .='echo $PWD'
-
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias mkdir='mkdir -p'
-
-alias du='du -kh'
-alias df='df -kTh'
-
-alias systail='tail -f /var/log/system.log'
-
-alias untar='tar xvzf'
-alias objectdump='od'
-
-#######################################################################################
-# Cleanup Resource Forks
-#######################################################################################
-
-alias cleanresforks='find . -name \*._*|xargs \rm'
-
-#######################################################################################
-# Copies folder and all sub files and folders, preserving security and dates
-#######################################################################################
-
-alias cp-folder="cp -Rpv" 
-
-#######################################################################################
-# Shows most used commands
-# http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
-#######################################################################################
-
-alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
- 
-#######################################################################################
-# Lists folders and files sizes in the current folder
-#######################################################################################
-
-alias ducks='du -cksh * | sort -rn | head -11'
-alias du1='du -h -d 1'
-
-#######################################################################################
-# tailoring 'less'
-#######################################################################################
-
-alias more='less'
-
-#######################################################################################
-# Prevents accidentally clobbering files.
-#######################################################################################
-
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
-alias mkdir='mkdir -p'
-
-#######################################################################################
-# The 'ls' family (this assumes you use a recent GNU ls)
-#######################################################################################
-
-alias la='ls -lAxh'        # show all, including hidden files
-alias ll='ls -l'           # show all, exclude hidden files
-
-alias lx='ls -lxB'         # sort by extension
-alias lk='ls -lSr'         # sort by size, biggest last
-alias lc='ls -ltcr'        # sort by and show change time, most recent last
-alias lu='ls -ltur'        # sort by and show access time, most recent last
-alias lt='ls -ltr'         # sort by date, most recent last
-alias lm='ls -al |more'    # pipe through 'more'
-alias lr='ls -lR'          # recursive ls
-
-#######################################################################################
-# Networking related aliases
-#######################################################################################
-
-alias ping='ping -c 10'
-alias openports='netstat -nap tcp'
-alias ns='netstat -alnp tcp | grep -v CLOSE_WAIT | cut -c-6,21-94 | tail +2'
-
-######################################################################################
-# Build related aliases
-######################################################################################
-
-alias maven='mvn3'
-
-######################################################################################
-# Config file editing aliases
-######################################################################################
-
-alias hostedit='sudo vim ${SYSHOSTFILE}'
-alias myhostedit='sudo vim ${HOSTFILE}'
 
 
