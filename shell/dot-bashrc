@@ -318,9 +318,12 @@ alias git-pull-upstream='git pull upstream master'
 
 alias reload-bash='source ~/.profile'
 
-alias hh='history'
 alias jj='jobs -l'
+
+alias hh='history'
 alias which='type -a'
+alias whichpath='type -p'
+
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 
@@ -405,10 +408,22 @@ alias openports='netstat -nap tcp'
 alias ns='netstat -alnp tcp | grep -v CLOSE_WAIT | cut -c-6,21-94 | tail +2'
 
 ######################################################################################
-# Build related aliases
+# Aliases for python and gcc version selection via MacPorts
+######################################################################################
+
+alias python_list='sudo port select --list python'
+alias python_select='sudo port select --set python'
+
+alias gcc_list='sudo port select --list gcc'
+alias gcc_select='sudo port select --set gcc'
+
+######################################################################################
+# Java related aliases
 ######################################################################################
 
 alias maven='mvn3'
+alias m2='mvn2'
+alias m3='mvn3'
 
 ######################################################################################
 # Config file editing aliases
