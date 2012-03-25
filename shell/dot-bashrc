@@ -437,6 +437,32 @@ alias m2='mvn2'
 alias m3='mvn3'
 
 ######################################################################################
+# Python virtualenvwrapper aliases
+######################################################################################
+
+# switch to a specific virtual environment
+alias pyworkon='workon'
+
+# stop using the current virtual environment
+alias pyworkoff='deactivate'
+
+# list virtual environments
+alias pylsenv='lsvirtualenv'
+
+# remove virtual environment
+alias pyrmenv='rmvirtualenv'
+
+# copy virtual environment
+alias pycpenv='cpvirtualenv'
+
+# change dir to top level of current virtual environment
+alias pycdenv='cdvirtualenv'
+
+# list site-packages for current virtual environment
+alias pylsenvpkgs='lssitepackages'
+
+
+######################################################################################
 # Config file editing aliases
 ######################################################################################
 
