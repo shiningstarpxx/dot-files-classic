@@ -89,12 +89,51 @@ if [ -e `type -p virtualenvwrapper.sh` ]; then
     # load virtualenv wrapper functions
     source virtualenvwrapper.sh > /dev/null 2>&1
 fi
-    
-# Add local bin folder to the path, if you have it.
+
+######################################################################################
+# Declare platform agnostic applications
+######################################################################################
+
+if [ -d $LOCAL_APP_HOME ]; then
+    # Declare platform agnostic applications
+    export EC2_API_TOOLS_VERSION=aws-ec2-api-tools-1.5.2.4
+    export CSVKIT_VERSION=csvkit-0.4.4
+    export PLAY_FRAMEWORK_VERSION=play-1.2.4
+    export VISUALVM_VERSION=visualvm-1.3.3
+fi
+
+######################################################################################
+# Add local applications to PATH
+######################################################################################
+
+# Add local binaries to the path, if you have it.
 if [ -d $LOCAL_APP_HOME/bin ]; then
+
+    # Create local bin PATH variable
     export LOCAL_BIN_PATH=$LOCAL_APP_HOME/bin
-    export EC2_HOME=$LOCAL_BIN_PATH/aws-ec2-api-tools-1.5.2.4
-    export PATH=$LOCAL_BIN_PATH:$EC2_HOME/bin:$PATH  
+
+    # Create EC2 PATH variable
+    if [ -d $LOCAL_BIN_PATH/$EC2_API_TOOLS_VERSION ]; then
+        export EC2_HOME=$LOCAL_BIN_PATH/$EC2_API_TOOLS_VERSION
+    fi
+    
+    # Create CSVkit PATH variable
+    if [ -d $LOCAL_BIN_PATH/$CSVKIT_VERSION ]; then
+        export CSVKIT_HOME=$LOCAL_BIN_PATH/$CSVKIT_VERSION
+    fi
+    
+    # Create Play! Framework PATH variable
+    if [ -d $LOCAL_BIN_PATH/$PLAY_FRAMEWORK_VERSION ]; then
+        export PLAY_FRAMEWORK_HOME=$LOCAL_BIN_PATH/$PLAY_FRAMEWORK_VERSION
+    fi
+    
+    # Create VisualVM PATH variable
+    if [ -d $LOCAL_BIN_PATH/$VISUALVM_VERSION ]; then
+        export VISUALVM_HOME=$LOCAL_BIN_PATH/$VISUALVM_VERSION
+    fi
+    
+    # Append platform agnostic tools to PATH
+    export PATH=$LOCAL_BIN_PATH:$EC2_HOME/bin:$CSVKIT_HOME:$PLAY_FRAMEWORK_HOME:$VISUALVM_HOME/bin:$PATH  
 fi
 
 # Add local data and log folder to the path, if you have it.

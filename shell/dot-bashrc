@@ -488,11 +488,20 @@ shopt -s histappend
 PROMPT_COMMAND='history -a'
 
 ######################################################################################
-# OS-X Specific aliases
+# Declare platform specific applications
+######################################################################################
+
+if [ "$OS" = "darwin" ]; then
+    # Declare OS X specific applications
+    export MYSQL_DB_VERSION=mysql-5.5.21-osx-x86_64
+fi
+
+######################################################################################
+# Platform specific aliases
 ######################################################################################
 
 if [ "$OS" = "darwin" ] ; then
-
+    
     # Override XCode4/gcc tendency to use arch=PPC when building libraries
     export ARCHFLAGS="-arch i386 -arch x86_64"
 
@@ -517,6 +526,14 @@ if [ "$OS" = "darwin" ] ; then
 
     # Open file in the current Aquamacs window
     alias openwithaquamacs='open -a /Applications/Aquamacs.app $1'
+
+    # Create local MySQL database tool PATH variable
+    if [ -d $LOCAL_BIN_PATH/$MYSQL_DB_VERSION ]; then
+        export MYSQL_DB_HOME=$LOCAL_BIN_PATH/$MYSQL_DB_VERSION
+    fi
+    
+    # Add OS-X specific binaries to PATH
+    export PATH=$MYSQL_DB_HOME/bin:$PATH
 fi
 
 
