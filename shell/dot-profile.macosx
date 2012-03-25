@@ -16,17 +16,18 @@
 # in OS X, or create a new tab in iTerm) the following files are read
 # and run, in this order:
 #
-# 1.    profile
-# 2.    bashrc
+# 1.    /etc/profile
+# 2.    /etc/bashrc
 # 3.    .bash_profile
-# 4.    .bashrc (only because this file is run (sourced) in .bash_profile)
+# 4.    .profile
+# 5.    .bashrc (only because this file is run (sourced) in .bash_profile)
 #
 # When an interactive shell, that is not a login shell, is started 
 # (when you run "bash" from inside a shell, or when you start a shell
 # in xwindows [xterm/gnome-terminal/etc] ) the following files are read
 # and executed, in this order:
 # 
-# 1.    bashrc
+# 1.    /etc/bashrc
 # 2.    .bashrc
 ########################################################################################
 
