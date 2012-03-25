@@ -16,19 +16,19 @@
 # in OS X, or create a new tab in iTerm) the following files are read
 # and run, in this order:
 #
-# 1.    /etc/profile
-# 2.    /etc/bashrc
-# 3.    .bash_profile
-# 4.    .profile
-# 5.    .bashrc (only because this file is run (sourced) in .bash_profile)
+# 1. /etc/profile
+# 2. /etc/bashrc
+# 3. .bash_profile
+# 4. .profile
+# 5. .bashrc (only because this file is run (sourced) in .bash_profile)
 #
 # When an interactive shell, that is not a login shell, is started 
 # (when you run "bash" from inside a shell, or when you start a shell
 # in xwindows [xterm/gnome-terminal/etc] ) the following files are read
 # and executed, in this order:
 # 
-# 1.    /etc/bashrc
-# 2.    .bashrc
+# 1. /etc/bashrc
+# 2. .bashrc
 ########################################################################################
 
 ########################################################################################
@@ -69,8 +69,24 @@ else
 fi
 
 # Python virtual environment
-if [ -e virtualenvwrapper.sh ]; then
-    export PYTHON_HOME=$HOME/.virtualenvs
+if [ -e `type -p virtualenvwrapper.sh` ]; then
+
+    # virtualenv working directory
+    export WORKON_HOME=$HOME/.virtualenvs
+
+    # make pip use the same directory for virtualenvs as virtualenvwrapper
+    export PIP_VIRTUALENV_BASE=$WORKON_HOME
+
+    # makes pip detect an active virtualenv and install to it, without
+    # having to pass it the -E parameter
+    export PIP_RESPECT_VIRTUALENV=true
+
+    # ensure that all new environments are isolated from the system
+    # site-packages directory by passing "no-site-packages" as the default
+    # argument for virtualenv
+    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+
+    # load virtualenv wrapper functions
     source virtualenvwrapper.sh > /dev/null 2>&1
 fi
     
@@ -97,7 +113,7 @@ fi
 ########################################################################################
 
 if [ -e ~/.bashrc ]; then
-    source ~/.bashrc
+    source ~/.bashrc > /dev/null 2>&1
 fi
 
 ########################################################################################
