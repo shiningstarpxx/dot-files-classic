@@ -53,24 +53,43 @@ if [ "$OS" = "darwin" ] ; then
     # Java HOME and CLASSPATH    
     export JAVA_HOME=/Library/Java/Home
 
-    # Python virtual environment
-    if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
-        export PYTHON_HOME=$HOME/.virtualenvs
-        source /usr/local/bin/virtualenvwrapper.sh > /dev/null 2>&1
-    fi
+    # Locally configured, user-specific binaries
+    export LOCAL_APP_HOME=~/Applications
 
+    # Project directory
+    export LOCAL_PROJECTS=~/Projects
+
+else
+
+    # Locally configured, user-specific binaries
+    export LOCAL_APP_HOME=~/apps
+
+    # Project directory
+    export LOCAL_PROJECTS=~/projects
 fi
- 
-# Add personal bin folder to the path, if you have it.
-if [ -d ~/Applications/bin ]; then
-    export LOCAL_BIN_PATH=~/Applications/bin
+
+# Python virtual environment
+if [ -e virtualenvwrapper.sh ]; then
+    export PYTHON_HOME=$HOME/.virtualenvs
+    source virtualenvwrapper.sh > /dev/null 2>&1
+fi
+    
+# Add local bin folder to the path, if you have it.
+if [ -d $LOCAL_APP_HOME/bin ]; then
+    export LOCAL_BIN_PATH=$LOCAL_APP_HOME/bin
     export EC2_HOME=$LOCAL_BIN_PATH/aws-ec2-api-tools-1.5.2.4
     export PATH=$LOCAL_BIN_PATH:$EC2_HOME/bin:$PATH  
 fi
 
+# Add local data and log folder to the path, if you have it.
+if [ -d $LOCAL_APP_HOME/var ]; then
+    export LOCAL_LOG_PATH=$LOCAL_APP_HOME/var/log
+    export LOCAL_DATA_PATH=$LOCAL_APP_HOME/var/data
+fi
+
 # Personal projects directory
-if [ -d $HOME/Projects ]; then
-    export PROJECT_HOME=$HOME/Projects
+if [ -d $HOME/$LOCAL_PROJECTS ]; then
+    export PROJECT_HOME=$HOME/$LOCAL_PROJECTS
 fi
 
 ########################################################################################

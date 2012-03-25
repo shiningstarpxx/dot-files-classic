@@ -457,13 +457,13 @@ if [ "$OS" = "darwin" ] ; then
     # Octave CLI
     alias octave="exec '/Applications/Octave.app/Contents/Resources/bin/octave'"
 
+    # Copy emacs configuration to Aquamacs pref directory
+    alias refreshaquamacsconfig='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
+
     # Multiprocess Aquamacs Alias
-    alias aquaemacs='/Applications/Aquamacs\ Emacs.app/Contents/MacOS/Aquamacs\ Emacs'
     alias aquamacs='/Applications/Aquamacs.app/Contents/MacOS/Aquamacs'
-    alias load-aquamacs-config='cp ~/.emacs ~/Library/Preferences/Aquamacs\ Emacs/Preferences.el'
 
     # Open file in the current Aquamacs window
-    alias openwithaquaemacs='open -a /Applications/Aquamacs\ Emacs.app $1'
     alias openwithaquamacs='open -a /Applications/Aquamacs.app $1'
 fi
 
