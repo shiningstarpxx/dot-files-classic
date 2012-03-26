@@ -441,10 +441,10 @@ alias m3='mvn3'
 ######################################################################################
 
 # switch to a specific virtual environment
-alias pyworkon='workon'
+alias pystartenv='workon'
 
 # stop using the current virtual environment
-alias pyworkoff='deactivate'
+alias pystopenv='deactivate'
 
 # list virtual environments
 alias pylsenv='lsvirtualenv'
