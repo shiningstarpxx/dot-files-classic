@@ -485,7 +485,7 @@ shopt -s histappend
  
 # Force bash to re-read the history file and then append commands to the history
 # every time a prompt is shown, instead of after closing the session.
-PROMPT_COMMAND='history -n; history -a'
+PROMPT_COMMAND='history -a'
 
 ######################################################################################
 # Declare platform specific applications
