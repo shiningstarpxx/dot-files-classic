@@ -275,7 +275,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (set-frame-height (selected-frame)    90)
-(set-frame-width  (selected-frame)   140)
+(set-frame-width  (selected-frame)   150)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Aquamacs Window Frame Transparency
@@ -538,6 +538,8 @@
 (require 'color-theme)
 
 ;; set custom variables
+;; or use on of the many default themes available
+;; http://gnuemacscolorthemetest.googlecode.com/svn/html/index-java.html
 (custom-set-variables
  '(cursor-type (quote box))
  '(tool-bar-mode nil nil (tool-bar))
