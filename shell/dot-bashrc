@@ -43,7 +43,7 @@ function sysinfo()
     echo -e  "Kernel: " `uname -smr`
     echo -ne "Uptime:  "; uptime
     echo -ne "Time  :  "; date
- }
+}
 
 ########################################################################################
 # Mercurial Functions
@@ -83,6 +83,20 @@ function git_dirty()
 function git_branch()
 {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/on \1$(git_dirty)/"
+}
+
+######################################################################################
+# Java Switcher
+######################################################################################
+
+function select_jdk6()
+{
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0) 
+}
+
+function select_jdk7()
+{
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0) 
 }
 
 ######################################################################################
