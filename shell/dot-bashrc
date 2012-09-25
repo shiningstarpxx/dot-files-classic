@@ -91,7 +91,7 @@ function git_branch()
 
 function select_jdk6()
 {
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0) 
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.6.0) 
 }
 
 function select_jdk7()
