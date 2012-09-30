@@ -454,6 +454,9 @@ alias m3='mvn3'
 # Python virtualenvwrapper aliases
 ######################################################################################
 
+# create a new virtual environment
+alias pymkenv='mkvirtualenv'
+
 # switch to a specific virtual environment
 alias pystartenv='workon'
 
